@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">进销存管理系统</string>
+    <string name="title_activity_login">登录</string>
+    <string name="prompt_email">邮箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="error_invalid_email">邮件地址不合规</string>
+    <string name="error_invalid_password">密码不能少于6位</string>
+    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_field_required">需要填写</string>
+    <string name="action_sign_up">创建账号</string>
+    <string name="action_forget">忘记密码</string>
+    <string name="sign_up_password">请输入密码</string>
+    <string name="sign_up_password2">请再次输入密码</string>
+    <string name="sign_up_email">请输入邮箱</string>
+    <string name="action_back_login">已有帐号？直接登录</string>
+    <string name="permission_rationale">需要联系人权限来验证邮箱</string>
+    <string name="action_to_sign_up">创建账号</string>
+    <string name="title_forget">找回密码</string>
+    <string name="action_to_forget">发送重置密码邮件</string>
+    <string name="back_to_login">返回登录</string>
+    <string name="restock">进货</string>
+    <string name="sell">销售</string>
+    <string name="stock">库存</string>
+</resources>

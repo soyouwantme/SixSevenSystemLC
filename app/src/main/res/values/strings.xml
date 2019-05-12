@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">SixSeven PSI System</string>
+    <string name="title_activity_login">Login</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">LOGIN</string>
+    <string name="error_invalid_email">email is vaild</string>
+    <string name="error_invalid_password">password is too short</string>
+    <string name="error_incorrect_password">password is not correct</string>
+    <string name="error_field_required">Required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="action_sign_up">CREATE ACCOUNT</string>
+    <string name="action_forget">Forget</string>
+    <string name="sign_up_password">Password</string>
+    <string name="sign_up_password2">Password2</string>
+    <string name="sign_up_email">Email</string>
+    <string name="action_back_login">Already a member? Login</string>
+    <string name="action_to_sign_up">Create</string>
+    <string name="title_forget">Forget</string>
+    <string name="action_to_forget">Send Email</string>
+    <string name="back_to_login">Back To Login</string>
+    <string name="restock">Restock</string>
+    <string name="sell">Sell</string>
+    <string name="stock">Stock</string>
+</resources>
