@@ -9,10 +9,10 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_light"
-        app:tabIndicatorColor="@color/accent"
-        app:tabTextColor="@color/primary"
-        app:tabSelectedTextColor="@color/accent"/>
+        android:background="@color/primary"
+        app:tabIndicatorColor="#fff"
+        app:tabTextColor="#b4ebf1"
+        app:tabSelectedTextColor="#fff"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
