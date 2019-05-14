@@ -1,6 +1,13 @@
 # 系统级课程设计 SixSevenSystemLC
 ##### Based on Android 7.1.1（API 25）
 
+## To Do List：
+- [ ] 数据库资料的收集整理和上传
+- [ ] 统计模块
+- [ ] 缺货预警
+
+## 
+
 #### 题目：
 基于Android的小型进销存软件设计。
 
@@ -16,14 +23,8 @@
 #### 编程语言：
 Eclipse + Android SDK + ADT
 
-
-
-## To Do List：
-[ ] 数据库资料的收集整理和上传
-[ ] 统计模块
-[ ] 缺货预警
-
-5.12 
+## 日进程：
+##### 5.12 
 - 完成顶部嵌套的TabLayout
 - 清除了顶部栏
 
