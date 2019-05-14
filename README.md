@@ -1,7 +1,7 @@
 # 系统级课程设计 SixSevenSystemLC
 ##### Based on Android 7.1.1（API 25）
 
-![LOGO](https://github.com/soyouwantme/SixSevenSystemLC/LOGO.png "陆柒进销存管理系统")
+![LOGO](https://github.com/soyouwantme/SixSevenSystemLC/blob/master/LOGO.png "陆柒进销存管理系统")
 ## To Do List：
 - [ ] 数据库资料的收集整理和上传
 - [ ] 统计模块
