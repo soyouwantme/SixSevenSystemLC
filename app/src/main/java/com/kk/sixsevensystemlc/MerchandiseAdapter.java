@@ -1,6 +1,7 @@
 package com.kk.sixsevensystemlc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,27 +31,46 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(mContext == null){
+            mContext = parent.getContext();
+        }
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.merchandise_item,parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("jkcpressed","pressed");
+                int position = holder.getAdapterPosition();
+                AVObject merchandise = mMerchandiseList.get(position);
+                Intent intent = new Intent(mContext,DetailActivity.class);
+                intent.putExtra(DetailActivity.MERCHANDISE_NAME,
+                        (CharSequence)merchandise.get("name"));
+                intent.putExtra(DetailActivity.MERCHANDISE_IMAGE_URL,
+                        mMerchandiseList.get(position).getAVFile("image").getUrl());
+                mContext.startActivity(intent);
+            }
+        });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.merchandisePrice.setText(mMerchandiseList.get(position).get("price") == null ? "￥" : "￥" + mMerchandiseList.get(position).get("price"));
+        holder.merchandisePrice.setText(mMerchandiseList.get(position).get("price")
+                == null ? "￥" : "￥" + mMerchandiseList.get(position).get("price"));
         holder.merchandiseName.setText((CharSequence)mMerchandiseList.get(position).get("name"));
-        //Log.d("urljkc",mMerchandiseList.get(position).getAVFile("image").getUrl());
+        //Log.d("urljkc",mMerchandiseList.get(position));
         //String url = "https://simg.open-open.com/show/a3dc23eb2ed7b79ce7ea71c8e29e6ded.png";
-        Picasso.with(mContext).load(mMerchandiseList.get(position).getAVFile("image") == null ? "www" : mMerchandiseList.get(position).getAVFile("image").getUrl()).into(holder.merchandiseImage);
+        Picasso.with(mContext).load(mMerchandiseList.get(position).getAVFile("image")
+                == null ? "www" : mMerchandiseList.get(position).getAVFile("image").getUrl()).into(holder.merchandiseImage);
         //Picasso.with(mContext).load(url).into(holder.merchandiseImage);
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        /*holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("jkcpressed",position + "pressed");
             }
-        });
+        });*/
     }
 
     @Override

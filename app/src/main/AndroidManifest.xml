@@ -18,23 +18,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgetActivity"></activity>
+        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".ForgetActivity" />
         <activity android:name=".SignupActivity" />
-
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
-        </activity>
+            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".MainActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-
-        <!-- 即时通讯模块、推送（均需要加入以下声明） START -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- 即时通讯模块、推送（均需要加入以下声明） START -->
         <!-- 即时通讯模块、推送都要使用 PushService -->
         <service android:name="com.avos.avoscloud.PushService" />
 
@@ -48,8 +44,9 @@
         <!-- 反馈组件（需要加入以下声明）START -->
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
 
-        <meta-data android:name="android.max_aspect" android:value="2.1" />
-
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
     </application>
 
 </manifest>
