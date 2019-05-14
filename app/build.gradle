@@ -38,7 +38,7 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
 
     // LeanCloud 基础包
-    implementation('cn.leancloud.android:avoscloud-sdk:4.7.10')
+    implementation('cn.leancloud.android:avoscloud-sdk:4.7.11')
 
     // 推送与即时通讯需要的包
     implementation('cn.leancloud.android:avoscloud-push:4.7.10@aar') { transitive = true }
@@ -53,5 +53,16 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    //implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+}
+
+configurations.all { //循环一个个的依赖库
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested //获取当前循环到的依赖库
+        if (requested.group == 'com.android.support') {//如果这个依赖库群组的名字是com.android.support
+            if (!requested.name.startsWith("multidex")) { //且其名字不是以multidex开头的
+                details.useVersion '28.0.0'//这里指定需要统一的依赖版本
+            }
+        }
+    }
 }

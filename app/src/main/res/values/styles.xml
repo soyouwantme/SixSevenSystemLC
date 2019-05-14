@@ -19,4 +19,9 @@
         <item name="android:textColor">#f00</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+        <item name="android:background">@xml/checkbox_selector</item>
+    </style>
 </resources>
