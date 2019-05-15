@@ -40,14 +40,12 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("jkcpressed","pressed");
+                //Log.d("jkcpressed","pressed");
                 int position = holder.getAdapterPosition();
                 AVObject merchandise = mMerchandiseList.get(position);
                 Intent intent = new Intent(mContext,DetailActivity.class);
-                intent.putExtra(DetailActivity.MERCHANDISE_NAME,
-                        (CharSequence)merchandise.get("name"));
-                intent.putExtra(DetailActivity.MERCHANDISE_IMAGE_URL,
-                        mMerchandiseList.get(position).getAVFile("image").getUrl());
+                intent.putExtra(DetailActivity.MERCHANDISE_NAME,(CharSequence)merchandise.get("name"));
+                intent.putExtra(DetailActivity.MERCHANDISE_IMAGE_URL,mMerchandiseList.get(position).getAVFile("image").getUrl());
                 mContext.startActivity(intent);
             }
         });
@@ -63,14 +61,6 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
         //String url = "https://simg.open-open.com/show/a3dc23eb2ed7b79ce7ea71c8e29e6ded.png";
         Picasso.with(mContext).load(mMerchandiseList.get(position).getAVFile("image")
                 == null ? "www" : mMerchandiseList.get(position).getAVFile("image").getUrl()).into(holder.merchandiseImage);
-        //Picasso.with(mContext).load(url).into(holder.merchandiseImage);
-
-        /*holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("jkcpressed",position + "pressed");
-            }
-        });*/
     }
 
     @Override

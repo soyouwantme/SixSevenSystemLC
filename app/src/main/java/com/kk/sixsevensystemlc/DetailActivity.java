@@ -1,11 +1,13 @@
 package com.kk.sixsevensystemlc;
 
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,19 +26,33 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
         Intent intent = getIntent();
-        String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
+        final String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
+        final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         ImageView merchandiseImageView = (ImageView)findViewById(R.id.detail_image);
         TextView merchandiseContentText = (TextView)findViewById(R.id.detail_text);
+        AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                Log.d("jkcSTATE",state.name());
+                if(state == State.COLLAPSED){
+                    //折叠
+                    collapsingToolbar.setTitle("商品详情");
+                }else{
+                    //非折叠
+                    collapsingToolbar.setTitle(" ");
+
+                }
+            }
+        });
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        collapsingToolbar.setTitle(merchandiseName);
-        //Glide.with(this).load(merchandiseImageId).into(merchandiseImageView);
+        //collapsingToolbar.setTitle(merchandiseName);
         Picasso.with(getBaseContext()).load(merchandiseImageURL).into(merchandiseImageView);
         String merchandiseContent = generateMerchandiseContent(merchandiseName);
         merchandiseContentText.setText(merchandiseContent);

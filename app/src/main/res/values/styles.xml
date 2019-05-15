@@ -24,4 +24,8 @@
         <item name="android:button">@null</item>
         <item name="android:background">@xml/checkbox_selector</item>
     </style>
+
+    <style name="ActivityTheme" parent="AppTheme">
+
+    </style>
 </resources>
