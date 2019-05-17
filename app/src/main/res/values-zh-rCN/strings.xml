@@ -23,4 +23,6 @@
     <string name="restock">进货</string>
     <string name="sell">销售</string>
     <string name="stock">库存</string>
+    <string name="add_to_cart">加入清单</string>
+    <string name="add_to_order">一键进货</string>
 </resources>

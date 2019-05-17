@@ -27,14 +27,15 @@
         <activity android:name=".SignupActivity" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 即时通讯模块、推送（均需要加入以下声明） START -->
+        </activity>
+        <!-- 即时通讯模块、推送（均需要加入以下声明） START -->
         <!-- 即时通讯模块、推送都要使用 PushService -->
         <service android:name="com.avos.avoscloud.PushService" />
 

@@ -25,4 +25,6 @@
     <string name="restock">Restock</string>
     <string name="sell">Sell</string>
     <string name="stock">Stock</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="add_to_order">Restock Now</string>
 </resources>

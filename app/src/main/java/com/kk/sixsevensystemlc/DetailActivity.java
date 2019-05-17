@@ -1,15 +1,20 @@
 package com.kk.sixsevensystemlc;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +26,10 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String MERCHANDISE_IMAGE_URL = "merchandise_image_url";
 
+    public static final String MERCHANDISE_PRICE = "merchandise_price";
+
+    public static final String MERCHANDISE_RATE = "merchandise_rate";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +37,53 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
+        double merchandisePrice = intent.getDoubleExtra(MERCHANDISE_PRICE,0);
+        int rate = Integer.parseInt(intent.getStringExtra(MERCHANDISE_RATE));
+        Log.d("jkcrate",rate+" ");
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         ImageView merchandiseImageView = (ImageView)findViewById(R.id.detail_image);
+        Picasso.with(getBaseContext()).load(merchandiseImageURL).into(merchandiseImageView);
+
         TextView merchandiseContentText = (TextView)findViewById(R.id.detail_text);
+        String merchandiseContent = generateMerchandiseContent(merchandiseName);
+        merchandiseContentText.setText(merchandiseContent);
+
+        TextView merchandisePriceText = (TextView)findViewById(R.id.detail_price);
+        merchandisePriceText.setText("￥" + merchandisePrice);
+
+        TextView merchandiseNameText = (TextView)findViewById(R.id.detail_name);
+        merchandiseNameText.setText(merchandiseName);
+
+        RatingBar ratingBar = (RatingBar)findViewById(R.id.detail_rate);
+        ratingBar.setNumStars(rate);
+
+        Button addCartBtn = (Button)findViewById(R.id.add_to_cart_btn);
+        addCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //添加到清单的逻辑
+            }
+        });
+
+        Button addOrderBtn = (Button)findViewById(R.id.add_to_order_btn);
+        addOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //直接购买，即添加到订单的逻辑，需要打开提示窗口选择数量，然后确定。
+            }
+        });
+
+        FloatingActionButton evaluationBtn = (FloatingActionButton)findViewById(R.id.detail_evaluation);
+        evaluationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //打开评价窗口的逻辑
+
+            }
+        });
+
         AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
         appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
@@ -43,7 +95,7 @@ public class DetailActivity extends AppCompatActivity {
                 }else{
                     //非折叠
                     collapsingToolbar.setTitle(" ");
-
+                    //setTheme(R.style.ActivityTheme2);
                 }
             }
         });
@@ -52,10 +104,7 @@ public class DetailActivity extends AppCompatActivity {
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        //collapsingToolbar.setTitle(merchandiseName);
-        Picasso.with(getBaseContext()).load(merchandiseImageURL).into(merchandiseImageView);
-        String merchandiseContent = generateMerchandiseContent(merchandiseName);
-        merchandiseContentText.setText(merchandiseContent);
+
     }
 
     private String generateMerchandiseContent(String merchandiseName){

@@ -45,6 +45,9 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
                 AVObject merchandise = mMerchandiseList.get(position);
                 Intent intent = new Intent(mContext,DetailActivity.class);
                 intent.putExtra(DetailActivity.MERCHANDISE_NAME,(CharSequence)merchandise.get("name"));
+                intent.putExtra(DetailActivity.MERCHANDISE_RATE,(CharSequence)merchandise.get("rate"));
+                Object PRICE = merchandise.get("price");
+                intent.putExtra(DetailActivity.MERCHANDISE_PRICE,Double.parseDouble(PRICE.toString()));
                 intent.putExtra(DetailActivity.MERCHANDISE_IMAGE_URL,mMerchandiseList.get(position).getAVFile("image").getUrl());
                 mContext.startActivity(intent);
             }

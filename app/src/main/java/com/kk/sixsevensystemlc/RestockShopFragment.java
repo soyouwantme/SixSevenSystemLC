@@ -67,10 +67,6 @@ public class RestockShopFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        });/**
-        for(int i=0;i<200;i++){
-            Merchandise apple=new Merchandise("Apple",R.drawable.apple_pic,100.0);
-            merchandiseList.add(apple);
-        }*/
+        });
     }
 }

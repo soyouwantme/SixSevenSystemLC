@@ -12,7 +12,7 @@
 
         <ImageView
             android:id="@+id/merchandise_image"
-            android:layout_width="wrap_content"
+            android:layout_width="106dp"
             android:layout_height="106dp"
             android:padding="7dp"
             android:src="@drawable/apple_pic"
