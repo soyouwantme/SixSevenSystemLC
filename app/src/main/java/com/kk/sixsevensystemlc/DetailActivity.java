@@ -30,6 +30,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String MERCHANDISE_RATE = "merchandise_rate";
 
+    public static final String MERCHANDISE_DETAIL = "merchandise_detail";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
         double merchandisePrice = intent.getDoubleExtra(MERCHANDISE_PRICE,0);
         int rate = Integer.parseInt(intent.getStringExtra(MERCHANDISE_RATE));
+        String merchandiseDetail = intent.getStringExtra(MERCHANDISE_DETAIL);
         Log.d("jkcrate",rate+" ");
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -47,8 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.with(getBaseContext()).load(merchandiseImageURL).into(merchandiseImageView);
 
         TextView merchandiseContentText = (TextView)findViewById(R.id.detail_text);
-        String merchandiseContent = generateMerchandiseContent(merchandiseName);
-        merchandiseContentText.setText(merchandiseContent);
+        merchandiseContentText.setText(merchandiseDetail);
 
         TextView merchandisePriceText = (TextView)findViewById(R.id.detail_price);
         merchandisePriceText.setText("￥" + merchandisePrice);
@@ -106,14 +108,14 @@ public class DetailActivity extends AppCompatActivity {
         }
 
     }
-
+/**
     private String generateMerchandiseContent(String merchandiseName){
         StringBuilder merchandiseContent = new StringBuilder();
         for (int i = 0; i < 500; i++){
             merchandiseContent.append(merchandiseName);
         }
         return merchandiseContent.toString();
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,7 +38,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, final int position) {
         holder.cartPrice.setText(mCartList.get(position).get("price") == null ? "￥" : "￥" + mCartList.get(position).get("price"));
         holder.cartName.setText((CharSequence)mCartList.get(position).get("name"));
-        //Picasso.with(mContext).load(mList.get(position).getAVFile("image") == null ? "www" : mList.get(position).getAVFile("image").getUrl()).transform(new RoundedTransformation(9, 0)).into(holder.mPicture);
+        Picasso.with(mContext).load(mCartList.get(position).getAVFile("image")
+                == null ? "www" : mCartList.get(position).getAVFile("image").getUrl()).into(holder.cartImage);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,14 +54,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        //ImageView merchandiseImage;
+        private ImageView cartImage;
         private TextView cartName;
         private TextView cartPrice;
         private LinearLayout linearLayout;
 
         public ViewHolder(View itemView){
             super(itemView);
-            //merchandiseImage=(ImageView)itemView.findViewById(R.id.merchandise_image);
+            cartImage=(ImageView)itemView.findViewById(R.id.cart_image);
             cartName=(TextView)itemView.findViewById(R.id.cart_name);
             cartPrice=(TextView)itemView.findViewById(R.id.cart_price);
             linearLayout= (LinearLayout)itemView.findViewById(R.id.cart_linearlayout);

@@ -16,7 +16,10 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class RestockCartFragment extends Fragment {
@@ -31,21 +34,21 @@ public class RestockCartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.restock_cart_fragment, container, false);
+        view = inflater.inflate(R.layout.restock_cart_fragment, container, false);
         initRecyclerview();
         initCart();
         return view;
     }
 
-    private void initRecyclerview(){
+    private void initRecyclerview() {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        cartAdapter = new CartAdapter(cartList,getContext());
+        cartAdapter = new CartAdapter(cartList, getContext());
         recyclerView.setAdapter(cartAdapter);
     }
 
-    private void initCart(){
+    private void initCart() {
         cartList.clear();
         AVQuery<AVObject> avQuery = new AVQuery<>("Cart");
         //avQuery.orderByDescending("createdAt");
@@ -56,17 +59,12 @@ public class RestockCartFragment extends Fragment {
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     cartList.addAll(list);
-                    Log.d("jkccartlist",cartList.toString());
+                    Log.d("jkccartlist", cartList.toString());
                     cartAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
                 }
             }
-        });/**
-         for(int i=0;i<200;i++){
-         Merchandise apple=new Merchandise("Apple",R.drawable.apple_pic,100.0);
-         merchandiseList.add(apple);
-         }*/
+        });
     }
-
 }

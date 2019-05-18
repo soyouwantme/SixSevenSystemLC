@@ -3,10 +3,7 @@ package com.kk.sixsevensystemlc;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +46,7 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
                 Object PRICE = merchandise.get("price");
                 intent.putExtra(DetailActivity.MERCHANDISE_PRICE,Double.parseDouble(PRICE.toString()));
                 intent.putExtra(DetailActivity.MERCHANDISE_IMAGE_URL,mMerchandiseList.get(position).getAVFile("image").getUrl());
+                intent.putExtra(DetailActivity.MERCHANDISE_DETAIL,(CharSequence)merchandise.get("detail"));
                 mContext.startActivity(intent);
             }
         });
