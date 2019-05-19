@@ -51,3 +51,10 @@ Eclipse + Android SDK + ADT
 #### 5.16
 - 完成商品详细页面的设计和实现
 - 建立了订单表
+
+#### 5.18
+- 完成销售Tab的布局编写
+- 完成单条销售记录的布局
+
+#### 5.19
+- 修复了viewpager在nestedscrollview中不显示的问题
