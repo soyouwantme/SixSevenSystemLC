@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:background="#f4f4f4"/>
+        android:background="@color/background"/>
 
 </RelativeLayout>

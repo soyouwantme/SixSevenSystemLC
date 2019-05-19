@@ -28,7 +28,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(mContext == null){
             mContext = parent.getContext();
         }
@@ -56,8 +56,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.orderName.setText((CharSequence)mOrderList.get(position).get("name"));
 
+        holder.orderName.setText((CharSequence)mOrderList.get(position).get("name"));
         int judge = Integer.parseInt(mOrderList.get(position).get("state").toString());
         Log.d("jkcjudge",judge+" ");
         switch (judge){

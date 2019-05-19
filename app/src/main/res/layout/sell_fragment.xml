@@ -125,6 +125,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nested_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -145,11 +146,12 @@
                     app:tabTextColor="#b4ebf1" />
 
                 <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
+                    android:id="@+id/sell_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </LinearLayout>
+
         </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
