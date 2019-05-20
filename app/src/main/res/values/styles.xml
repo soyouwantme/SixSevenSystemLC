@@ -11,13 +11,13 @@
     <style name="TextViewStyleName">
         <item name="android:layout_margin">5sp</item>
         <item name="android:textColor">#000</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="TextViewStylePrice">
         <item name="android:layout_margin">5sp</item>
         <item name="android:textColor">#f00</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
@@ -39,11 +39,11 @@
     <style name="Price">
         <item name="android:layout_margin">5sp</item>
         <item name="android:textColor">#f00</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="OrderChar">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_margin">5sp</item>
         <item name="android:textColor">#000</item>
     </style>

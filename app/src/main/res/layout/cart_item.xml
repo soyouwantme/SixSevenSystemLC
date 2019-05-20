@@ -24,16 +24,16 @@
 
             <CheckBox
                 android:id="@+id/determine_checkbox"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 style="@style/CheckBox"
                 android:layout_centerVertical="true"
                 />
 
             <ImageView
                 android:id="@+id/cart_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_toRightOf="@+id/determine_checkbox"
                 android:src="@drawable/apple_pic"
                 tools:srcCompat="@tools:sample/avatars" />

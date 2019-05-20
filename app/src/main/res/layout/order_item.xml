@@ -28,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/cart_image"
                 tools:text="@tools:sample/cities" />
 
             <TextView
@@ -36,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:textColor="@color/accent"
                 style="@style/OrderChar"
                 tools:text="@tools:sample/cities" />
@@ -46,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/avoscloud_timestamp_gray"
                 style="@style/TextViewStyleName"
                 tools:text="@tools:sample/us_zipcodes" />
@@ -56,9 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextViewStyleName"
-                android:layout_toRightOf="@+id/order_price"
+                android:layout_toEndOf="@+id/order_price"
                 android:layout_alignParentBottom="true"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/avoscloud_timestamp_gray"
                 tools:text="@tools:sample/us_zipcodes" />
 
@@ -67,11 +66,11 @@
                 style="@style/TextViewStyleName"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:singleLine="true"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 tools:text="@tools:sample/cities" />
 
 
