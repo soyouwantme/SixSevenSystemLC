@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 
+import com.kk.sixsevensystemlc.restock.RestockFragment;
+import com.kk.sixsevensystemlc.sell.SellFragment;
+import com.kk.sixsevensystemlc.stock.StockFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 

@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.kk.sixsevensystemlc.R;
+
 public class StockActivity extends AppCompatActivity {
 
     public static final String STOCK_ID = "stock_id";
