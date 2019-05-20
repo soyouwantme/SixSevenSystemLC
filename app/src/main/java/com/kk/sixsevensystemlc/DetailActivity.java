@@ -22,6 +22,8 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
+    public static final String MERCHANDISE_ID = "merchandise_id";
+
     public static final String MERCHANDISE_NAME = "merchandise_name";
 
     public static final String MERCHANDISE_IMAGE_URL = "merchandise_image_url";
@@ -36,27 +38,32 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
+
         Intent intent = getIntent();
+        int merchandiseId = intent.getIntExtra(MERCHANDISE_ID,0);
         final String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
         double merchandisePrice = intent.getDoubleExtra(MERCHANDISE_PRICE,0);
         int rate = Integer.parseInt(intent.getStringExtra(MERCHANDISE_RATE));
         String merchandiseDetail = intent.getStringExtra(MERCHANDISE_DETAIL);
-        Log.d("jkcrate",rate+" ");
+        //Log.d("jkcrate",rate+" ");
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         ImageView merchandiseImageView = (ImageView)findViewById(R.id.detail_image);
         Picasso.with(getBaseContext()).load(merchandiseImageURL).into(merchandiseImageView);
 
+        TextView merchandiseIdText = (TextView)findViewById(R.id.detail_id);
+        merchandiseIdText.setText("货号：" + merchandiseId);
+
         TextView merchandiseContentText = (TextView)findViewById(R.id.detail_text);
         merchandiseContentText.setText(merchandiseDetail);
 
         TextView merchandisePriceText = (TextView)findViewById(R.id.detail_price);
-        merchandisePriceText.setText("￥" + merchandisePrice);
+        merchandisePriceText.setText("进价：￥" + merchandisePrice);
 
         TextView merchandiseNameText = (TextView)findViewById(R.id.detail_name);
-        merchandiseNameText.setText(merchandiseName);
+        merchandiseNameText.setText("名称："+merchandiseName);
 
         RatingBar ratingBar = (RatingBar)findViewById(R.id.detail_rate);
         ratingBar.setNumStars(rate);
@@ -74,15 +81,6 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //直接购买，即添加到订单的逻辑，需要打开提示窗口选择数量，然后确定。
-            }
-        });
-
-        FloatingActionButton evaluationBtn = (FloatingActionButton)findViewById(R.id.detail_evaluation);
-        evaluationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //打开评价窗口的逻辑
-
             }
         });
 
@@ -108,14 +106,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
     }
-/**
-    private String generateMerchandiseContent(String merchandiseName){
-        StringBuilder merchandiseContent = new StringBuilder();
-        for (int i = 0; i < 500; i++){
-            merchandiseContent.append(merchandiseName);
-        }
-        return merchandiseContent.toString();
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

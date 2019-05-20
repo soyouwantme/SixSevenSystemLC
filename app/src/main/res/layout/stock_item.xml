@@ -2,17 +2,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/merchandise_linearlayout"
+    android:id="@+id/stock_linearlayout"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:background="#fefefe"
     android:layout_marginBottom="2dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="7dp">
 
         <ImageView
-            android:id="@+id/merchandise_image"
+            android:id="@+id/stock_image"
             android:layout_width="106dp"
             android:layout_height="106dp"
             android:layout_marginStart="7dp"
@@ -26,38 +28,40 @@
             tools:srcCompat="@tools:sample/avatars[7]" />
 
         <TextView
-            android:id="@+id/merchandise_id"
+            android:id="@+id/stock_id"
             style="@style/TextViewStyleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/merchandise_image"
+            android:layout_toEndOf="@+id/stock_image"
             android:paddingTop="7dp"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
             tools:text="@tools:sample/cities" />
 
         <TextView
-            android:id="@+id/merchandise_name"
+            android:id="@+id/stock_name"
             style="@style/TextViewStyleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_below="@id/merchandise_id"
-            android:layout_toEndOf="@+id/merchandise_image"
+            android:layout_below="@+id/stock_id"
+            android:layout_toEndOf="@+id/stock_image"
+            android:paddingTop="5dp"
+            android:layout_marginLeft="5dp"
             tools:text="@tools:sample/cities" />
 
         <TextView
-            android:id="@+id/merchandise_price"
-            style="@style/TextViewStyleName"
+            android:id="@+id/stock_left"
+            android:textColor="#666666"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/merchandise_name"
-            android:layout_margin="4dp"
-            android:layout_toEndOf="@+id/merchandise_image"
+            android:layout_below="@+id/stock_name"
+            android:textSize="18dp"
+            android:paddingTop="5dp"
+            android:layout_toEndOf="@+id/stock_image"
+            android:layout_marginLeft="5dp"
             tools:text="@tools:sample/cities" />
 
     </RelativeLayout>
 
 </LinearLayout>
-
-

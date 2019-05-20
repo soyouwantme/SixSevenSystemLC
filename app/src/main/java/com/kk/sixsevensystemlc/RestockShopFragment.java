@@ -53,7 +53,6 @@ public class RestockShopFragment extends Fragment {
     private void initMerchandise(){
         merchandiseList.clear();
         AVQuery<AVObject> avQuery = new AVQuery<>("Merchandise");
-        //avQuery.orderByDescending("createdAt");
         avQuery.include("name");
         avQuery.include("price");
         avQuery.findInBackground(new FindCallback<AVObject>() {
@@ -61,7 +60,7 @@ public class RestockShopFragment extends Fragment {
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     merchandiseList.addAll(list);
-                    Log.d("jkclist",merchandiseList.toString());
+                    //Log.d("jkclist",merchandiseList.toString());
                     merchandiseAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();

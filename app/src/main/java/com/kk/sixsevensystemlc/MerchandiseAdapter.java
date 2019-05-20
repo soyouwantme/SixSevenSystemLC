@@ -41,6 +41,8 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
                 int position = holder.getAdapterPosition();
                 AVObject merchandise = mMerchandiseList.get(position);
                 Intent intent = new Intent(mContext,DetailActivity.class);
+                Object merchandiseId = merchandise.get("merchandiseId");
+                intent.putExtra(DetailActivity.MERCHANDISE_ID,Integer.parseInt(merchandiseId.toString()));
                 intent.putExtra(DetailActivity.MERCHANDISE_NAME,(CharSequence)merchandise.get("name"));
                 intent.putExtra(DetailActivity.MERCHANDISE_RATE,(CharSequence)merchandise.get("rate"));
                 Object PRICE = merchandise.get("price");
@@ -55,14 +57,11 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.merchandisePrice.setText(mMerchandiseList.get(position).get("price")
-                == null ? "￥" : "￥" + mMerchandiseList.get(position).get("price"));
-        holder.merchandiseName.setText((CharSequence)mMerchandiseList.get(position).get("name"));
-        //Log.d("urljkc",mMerchandiseList.get(position));
-        //String url = "https://simg.open-open.com/show/a3dc23eb2ed7b79ce7ea71c8e29e6ded.png";
-        Picasso.with(mContext).load(mMerchandiseList.get(position).getAVFile("image")
-                == null ? "www" : mMerchandiseList.get(position).getAVFile("image").getUrl()).into(holder.merchandiseImage);
-    }
+        Picasso.with(mContext).load(mMerchandiseList.get(position).getAVFile("image").getUrl()).into(holder.merchandiseImage);
+        holder.merchandiseId.setText("货号："+mMerchandiseList.get(position).get("merchandiseId"));
+        holder.merchandiseName.setText("名称："+mMerchandiseList.get(position).get("name"));
+        holder.merchandisePrice.setText("进价：￥" + mMerchandiseList.get(position).get("price"));
+           }
 
     @Override
     public int getItemCount() {
@@ -71,6 +70,7 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView merchandiseImage;
+        private TextView merchandiseId;
         private TextView merchandiseName;
         private TextView merchandisePrice;
         private LinearLayout linearLayout;
@@ -78,6 +78,7 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
         public ViewHolder(View itemView){
             super(itemView);
             merchandiseImage=(ImageView)itemView.findViewById(R.id.merchandise_image);
+            merchandiseId = (TextView)itemView.findViewById(R.id.merchandise_id);
             merchandiseName=(TextView)itemView.findViewById(R.id.merchandise_name);
             merchandisePrice=(TextView)itemView.findViewById(R.id.merchandise_price);
             linearLayout= (LinearLayout)itemView.findViewById(R.id.merchandise_linearlayout);
