@@ -5,14 +5,13 @@
     android:id="@+id/record_linearlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background"
+    android:background="@color/abovebackground"
     android:layout_margin="10dp"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:padding="4dp"
         android:orientation="vertical">
 
@@ -38,9 +37,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="4"
         android:padding="4dp"
         android:orientation="vertical">
 
@@ -62,9 +60,8 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="2"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:padding="5dp"
         android:layout_height="match_parent">
 
@@ -74,9 +71,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             tools:text="@tools:sample/us_zipcodes"
             android:textColor="#f00"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

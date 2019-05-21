@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="StockActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="库存详情"></activity>
         <activity
             android:name="DetailActivity"
             android:theme="@style/ActivityTheme"></activity>

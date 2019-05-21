@@ -41,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.detail_activity);
 
         Intent intent = getIntent();
-        int merchandiseId = intent.getIntExtra(MERCHANDISE_ID,0);
+        String merchandiseId = intent.getStringExtra(MERCHANDISE_ID);
         final String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
         double merchandisePrice = intent.getDoubleExtra(MERCHANDISE_PRICE,0);
@@ -49,27 +49,27 @@ public class DetailActivity extends AppCompatActivity {
         String merchandiseDetail = intent.getStringExtra(MERCHANDISE_DETAIL);
         //Log.d("jkcrate",rate+" ");
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
-        ImageView merchandiseImageView = (ImageView)findViewById(R.id.detail_image);
+        ImageView merchandiseImageView = findViewById(R.id.detail_image);
         Picasso.with(getBaseContext()).load(merchandiseImageURL).into(merchandiseImageView);
 
-        TextView merchandiseIdText = (TextView)findViewById(R.id.detail_id);
+        TextView merchandiseIdText = findViewById(R.id.detail_id);
         merchandiseIdText.setText("货号：" + merchandiseId);
 
-        TextView merchandiseContentText = (TextView)findViewById(R.id.detail_text);
+        TextView merchandiseContentText = findViewById(R.id.detail_text);
         merchandiseContentText.setText(merchandiseDetail);
 
-        TextView merchandisePriceText = (TextView)findViewById(R.id.detail_price);
+        TextView merchandisePriceText = findViewById(R.id.detail_price);
         merchandisePriceText.setText("进价：￥" + merchandisePrice);
 
-        TextView merchandiseNameText = (TextView)findViewById(R.id.detail_name);
+        TextView merchandiseNameText = findViewById(R.id.detail_name);
         merchandiseNameText.setText("名称："+merchandiseName);
 
-        RatingBar ratingBar = (RatingBar)findViewById(R.id.detail_rate);
+        RatingBar ratingBar = findViewById(R.id.detail_rate);
         ratingBar.setNumStars(rate);
 
-        Button addCartBtn = (Button)findViewById(R.id.add_to_cart_btn);
+        Button addCartBtn = findViewById(R.id.add_to_cart_btn);
         addCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +77,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        Button addOrderBtn = (Button)findViewById(R.id.add_to_order_btn);
+        Button addOrderBtn = findViewById(R.id.add_to_order_btn);
         addOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +85,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
         appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {

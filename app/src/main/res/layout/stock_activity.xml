@@ -1,63 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".StockActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="@color/primary"
+            app:popupTheme="@style/Theme.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/abovebackground"
+            android:layout_margin="7dp">
 
+            <ImageView
+                android:id="@+id/stock_image"
+                android:layout_width="106dp"
+                android:layout_height="106dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="7dp"
+                android:background="@color/background"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/apple_pic"
+                tools:srcCompat="@tools:sample/avatars[7]" />
 
             <TextView
                 android:id="@+id/stock_id"
                 style="@style/TextViewStyleName"
-                android:paddingStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/stock_price"
-                style="@style/Price"
-                android:layout_width="wrap_content"
-                android:paddingStart="5dp"
-                android:layout_height="wrap_content"
-                tools:text="@tools:sample/lorem" />
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/stock_image"
+                android:paddingTop="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                tools:text="@tools:sample/cities" />
 
             <TextView
                 android:id="@+id/stock_name"
                 style="@style/TextViewStyleName"
-                android:paddingStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@tools:sample/lorem" />
+                android:layout_below="@+id/stock_id"
+                android:layout_toEndOf="@+id/stock_image"
+                android:paddingTop="5dp"
+                android:layout_marginLeft="5dp"
+                tools:text="@tools:sample/cities" />
 
+            <TextView
+                android:id="@+id/stock_left"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stock_name"
+                android:textSize="16dp"
+                android:paddingTop="5dp"
+                android:layout_toEndOf="@+id/stock_image"
+                android:layout_marginLeft="5dp"
+                tools:text="@tools:sample/cities" />
+            <TextView
+                android:id="@+id/record_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stock_left"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:layout_marginTop="14dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="7dp"
+                android:text="销售记录:"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/stock_record_recycler_view"
+                android:layout_below="@+id/record_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/add_to_order_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/add_to_order"
+                android:textColor="@color/avoscloud_feedback_white" />
+
+            <Button
+                android:id="@+id/out_btn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/accent"
+                android:text="添加出库" />
 
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

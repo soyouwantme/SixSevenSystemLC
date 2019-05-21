@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
 
         };
-        //不要忘记设置ViewPager的适配器
+        //设置ViewPager的适配器
         mViewPager.setAdapter(mAdapter);
         //设置ViewPager的切换监听
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
