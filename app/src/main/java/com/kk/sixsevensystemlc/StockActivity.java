@@ -27,6 +27,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.kk.sixsevensystemlc.R;
 import com.kk.sixsevensystemlc.restock.OrderAdapter;
 import com.kk.sixsevensystemlc.sell.RecordAdapter;
+import com.kk.sixsevensystemlc.sell.SellRecordFragment;
 import com.kk.sixsevensystemlc.stock.InStockDialogFragment;
 import com.kk.sixsevensystemlc.stock.NeedDialogFragment;
 import com.kk.sixsevensystemlc.stock.OutStockDialogFragment;
@@ -135,7 +136,7 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException avException) {
-                if(avObjects==null){
+                if(avObjects.size()==0){
                     AVObject message = new AVObject("message");
                     message.put("detail",name);
                     message.saveInBackground();
@@ -145,23 +146,9 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
     }
 
     private void refreshStock(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(1000);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stockAdapter.notifyDataSetChanged();
-                        swipeRefresh.setRefreshing(false);
-                    }
-                });
-            }
-        });
+        stockAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+
     }
 
     public void showOutstockDialog(View view)
@@ -218,20 +205,6 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.delete:
-                //删除库存逻辑
-                break;
-            case R.id.edit:
-                //edit stock
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
 
     @Override
     public void onOutComplete(int num) {

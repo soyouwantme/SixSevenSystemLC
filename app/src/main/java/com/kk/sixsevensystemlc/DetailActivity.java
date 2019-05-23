@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class DetailActivity extends AppCompatActivity implements InStockDialogFr
 
     String merchandiseId;
     AVObject merchandise;
+    String merchandiseName;
 
 
     public static final String OBJECT_ID = "object_id";
@@ -53,7 +55,7 @@ public class DetailActivity extends AppCompatActivity implements InStockDialogFr
 
         Intent intent = getIntent();
         merchandiseId = intent.getStringExtra(OBJECT_ID);
-        final String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
+        merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
         double merchandisePrice = intent.getDoubleExtra(MERCHANDISE_PRICE,0);
         int rate = Integer.parseInt(intent.getStringExtra(MERCHANDISE_RATE));
@@ -210,14 +212,32 @@ public class DetailActivity extends AppCompatActivity implements InStockDialogFr
         });
 
 
+        Snackbar.make(getWindow().getDecorView(),"添加成功",Snackbar.LENGTH_SHORT).show();
 
     }
 
     @Override
-    public void onInCartComplete(int num) {
-            AVObject cart = new AVObject("Cart");
-            cart.put("merchandiseId",merchandise);
-            cart.put("cartNum",num);
-            cart.saveInBackground();
+    public void onInCartComplete(final int num) {/*
+        AVQuery<AVObject> query = new AVQuery<>("Cart");
+        query.whereEqualTo("merchandiseId",merchandise);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> avObjects, AVException avException) {
+                if (avObjects.size() == 0){*/
+                    AVObject cart = new AVObject("Cart");
+                    cart.put("merchandiseId",merchandise);
+                    cart.put("cartNum",num);
+                    cart.saveInBackground();/*
+                }else {
+                    AVObject cart = avObjects.get(0);
+                    int cartNum = Integer.parseInt(cart.get("cartNum")+"");
+                    cartNum = cartNum + num;
+                    cart.put("cartNum",cartNum);
+                    cart.saveInBackground();
+                }
+            }
+        });*/
+
+
     }
 }

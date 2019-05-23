@@ -69,7 +69,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 String price = merchandise.get("price")+"";
                 String num = mOrderList.get(position).get("orderNum")+"";
                 holder.orderName.setText(name);
-                holder.orderPrice.setText(mOrderList.get(position).get("price") == null ? "￥" : "￥" + mOrderList.get(position).get("price"));
+                holder.orderPrice.setText("￥" +price);
                 holder.orderNum.setText("×" + num);
                 holder.orderState.setText("已完成");
                 float sum = Float.parseFloat(num) * Float.parseFloat(price);
