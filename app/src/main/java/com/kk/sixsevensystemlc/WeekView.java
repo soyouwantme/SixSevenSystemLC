@@ -12,7 +12,18 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
+import com.kk.sixsevensystemlc.sell.SellFragment;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -43,8 +54,30 @@ public class WeekView extends View {
     /**需要绘制的高度*/
     private float mNeedDrawHeight;
     /**数据值*/
-    private int[] value = new int[24];
-    private String[] time = new String[24];
+    private int[] value = new int[7];
+    private int j=0;
+    private int k=0;
+    private List<List> numWeekList = new ArrayList<>();
+    private List<List> priceWeekList = new ArrayList<>();
+    private List<Integer> sumWeekList = new ArrayList<>();
+
+    private List<Integer> numWeekList1 = new ArrayList<>();
+    private List<Integer> numWeekList2 = new ArrayList<>();
+    private List<Integer> numWeekList3 = new ArrayList<>();
+    private List<Integer> numWeekList4 = new ArrayList<>();
+    private List<Integer> numWeekList5 = new ArrayList<>();
+    private List<Integer> numWeekList6 = new ArrayList<>();
+    private List<Integer> numWeekList7 = new ArrayList<>();
+    private List<Float> priceWeekList1 = new ArrayList<>();
+    private List<Float> priceWeekList2 = new ArrayList<>();
+    private List<Float> priceWeekList3 = new ArrayList<>();
+    private List<Float> priceWeekList4 = new ArrayList<>();
+    private List<Float> priceWeekList5 = new ArrayList<>();
+    private List<Float> priceWeekList6 = new ArrayList<>();
+    private List<Float> priceWeekList7 = new ArrayList<>();
+    float priceTotal = 0;
+
+    private String[] time = new String[7];
     /**图表的最大值*/
     private int maxValue;
     /**折线文本画笔*/
@@ -77,22 +110,98 @@ public class WeekView extends View {
         DrawLineCircle(canvas);
     }
 
-    private void DataProcess(){
-       /** SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        String weatherStringDay = prefs.getString("StringDay", null);
-        ForecastDay day = Utility.handleWeatherDayResponse(weatherStringDay);
-        List<ForecastDay.Day.Hourly.Temperature> temperature = day.day.hourly.dayTemperatureList;
-        for (int i = 0 ; i < 24; i++){
-            if(temperature.get(i).value.contains(".")){
-                value[i] =Integer.parseInt(temperature.get(i).value.substring(0, temperature.get(i).value.indexOf(".")));
-            }else {
-                value[i] =Integer.parseInt(temperature.get(i).value);
+    private void DataProcess(){/*
+        numWeekList1.clear();
+        numWeekList2.clear();
+        numWeekList3.clear();
+        numWeekList4.clear();
+        numWeekList5.clear();
+        numWeekList6.clear();
+        numWeekList7.clear();
+        priceWeekList1.clear();
+        priceWeekList2.clear();
+        priceWeekList3.clear();
+        priceWeekList4.clear();
+        priceWeekList5.clear();
+        priceWeekList6.clear();
+        priceWeekList7.clear();
+        numWeekList.add(numWeekList1);
+        numWeekList.add(numWeekList2);
+        numWeekList.add(numWeekList3);
+        numWeekList.add(numWeekList4);
+        numWeekList.add(numWeekList5);
+        numWeekList.add(numWeekList6);
+        numWeekList.add(numWeekList7);
+        priceWeekList.add(priceWeekList1);
+        priceWeekList.add(priceWeekList2);
+        priceWeekList.add(priceWeekList3);
+        priceWeekList.add(priceWeekList4);
+        priceWeekList.add(priceWeekList5);
+        priceWeekList.add(priceWeekList6);
+        priceWeekList.add(priceWeekList7);
+
+        Calendar time1 = Calendar.getInstance();
+        Calendar time2 = Calendar.getInstance();
+        Calendar start = time1,end = time2;
+        j = 0;
+        for (int i = 0 ; i < 7; i++){
+            start.add(start.DATE, -1);
+            Date startDate = getDatString(start);
+            //Log.d("time",i+":"+startDate);
+            if(i!=0) {
+                end.add(end.DATE, -1);
             }
-            time[i] = temperature.get(i).datetime.substring(11,13);
-            Log.d("date",""+time[i]);
-            Log.d("valueList"+i,""+value[i]);
+            Date endDate = getDatString(end);
+            Log.d("time",i+":"+startDate+";"+endDate);
+
+            AVQuery<AVObject> startDateQuery = new AVQuery<>("Record");
+            startDateQuery.whereGreaterThanOrEqualTo("sellDate", startDate);
+            AVQuery<AVObject> endDateQuery = new AVQuery<>("Record");
+            endDateQuery.whereLessThanOrEqualTo("sellDate", endDate);
+
+            //获取这日的全部订单
+            AVQuery<AVObject> query = AVQuery.and(Arrays.asList(startDateQuery, endDateQuery));
+            query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(final List<AVObject> avObjects, AVException avException) {
+                    for (AVObject record : avObjects) {
+                        //Log.d("time","已进入2"+j);
+                        Log.d("time","已进入1 "+record.get("recordNum").toString());
+                        numWeekList.get(j).add(Integer.parseInt(record.get("recordNum") + ""));
+                    }
+                    Log.e("time","j+++++:"+numWeekList.get(j)+" "+j);
+                    j++;
+                    sumWeekList.clear();
+                    for (k=0;k<7;k++){
+                        sumWeekList.add(sumList(numWeekList.get(k)));
+                        value[k]=sumWeekList.get(k);
+                        time[k] = k+1+"";
+                        Log.e("sum","value"+":"+k+":"+ value[k]);
+                        Log.e("sumtime","value"+time[k]);
+                        maxValue = Arrays.stream(value).max().getAsInt() - Arrays.stream(value).min().getAsInt();
+                        Log.e("summax","value"+maxValue);
+                    }
+                }
+            });
+        }*/
+
+    }
+
+    int sumList(List<Integer> list){
+        int sum = 0;
+        for (Integer a:list){
+            sum = sum +a;
         }
-        maxValue = Arrays.stream(value).max().getAsInt() - Arrays.stream(value).min().getAsInt();*/
+        return sum;
+    }
+
+    Date getDatString(Calendar time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        time.set(Calendar.HOUR, 5);
+        time.set(Calendar.MINUTE, 0);
+        time.set(Calendar.SECOND, 0);
+        //Log.d("timejkc",time.getTime()+"");
+        return time.getTime();
     }
 
     /**绘制线上的圆*/

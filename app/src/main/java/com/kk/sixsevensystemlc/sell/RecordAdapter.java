@@ -73,7 +73,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 // 获取商品
                 AVObject merchandise = avObject.getAVObject("merchandiseId");
                 String name = merchandise.get("name") + "";
-                String price = merchandise.get("price")+"";
+                String price = merchandise.get("sell")+"";
                 holder.recordName.setText(name);
                 holder.recordNum.setText("×"+mRecordList.get(position).get("recordNum"));
                 //总价计算
@@ -81,10 +81,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 holder.recordSum.setText("￥"+String.format("%.2f", sum));
             }
         });
-
-        //holder.recordName.setText((CharSequence)mRecordList.get(position).get("name"));
-
-
     }
 
     @Override

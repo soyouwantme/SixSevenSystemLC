@@ -12,7 +12,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.DeleteCallback;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.kk.sixsevensystemlc.R;
 
 import java.util.List;
@@ -57,24 +63,57 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+/*
+        String name = mMessageList.get(position).get("detail")+"";
+        AVQuery<AVObject> query = new AVQuery<>("Stock");
+        query.whereGreaterThan("left", 10);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> avObjects, AVException avException) {
+                if (avObjects!=null) {
+                    for (AVObject a : avObjects) {
+                        Log.d("del", a.get("left").toString());
+                        final AVQuery<AVObject> query = new AVQuery<>("message");
+                        String oId = a.getObjectId();
+                        AVObject merchandise = AVObject.createWithoutData("Stock", oId);
+                        //Log.e("id",oId+"");
+                        merchandise.fetchInBackground("merchandiseId", new GetCallback<AVObject>() {
+                            @Override
+                            public void done(AVObject object, AVException e) {
+                                if (e==null){
+                                    AVObject merchandise = object.getAVObject("merchandiseId");
+                                    Log.d("del", merchandise.get("name")+"");
 
-        int judge = Integer.parseInt(mMessageList.get(position).get("state").toString());
-        //GradientDrawable mGrad = (GradientDrawable) holder.messageState.getBackground();
-        //Log.d("jkcjudgemessage",judge+" ");
-        switch (judge){
-            case 0:
-                //mGrad.setColor(Color.parseColor("#ff0000"));
-                holder.messageName.setText("库存不足");
-                break;
-            case 1:
-                //mGrad.setColor(Color.parseColor("#00ff00"));
-                holder.messageName.setText("新入库");
-                break;
-            default:
-                break;
-        }
+                                    query.whereEqualTo("detail", merchandise.get("name"));
+                                    query.getFirstInBackground(new GetCallback<AVObject>() {
+                                        @Override
+                                        public void done(AVObject object, AVException e) {
+                                            if (object != null) {
+                                                Log.d("delwho",""+object.get("detail"));
+                                                object.deleteInBackground(new DeleteCallback() {
+                                                    @Override
+                                                    public void done(AVException e) {
+                                                        Log.d("deldo","finished");
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }else {
+                                    Log.e("error",e.toString());
+                                }
+
+                            }
+                        });
+
+                    }
+                }else{
+
+                }
+            }
+        });*/
+        holder.messageName.setText("库存不足");
         holder.messageDetail.setText((CharSequence)mMessageList.get(position).get("detail"));
-        //Log.d("urljkc",mMerchandiseList.get(position));
     }
 
     @Override

@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.GetCallback;
 import com.kk.sixsevensystemlc.R;
 import com.squareup.picasso.Picasso;
 
@@ -36,11 +38,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, final int position) {
-        holder.cartPrice.setText(mCartList.get(position).get("price") == null ? "￥" : "￥" + mCartList.get(position).get("price"));
-        holder.cartName.setText((CharSequence)mCartList.get(position).get("name"));
-        Picasso.with(mContext).load(mCartList.get(position).getAVFile("image")
-                == null ? "www" : mCartList.get(position).getAVFile("image").getUrl()).into(holder.cartImage);
+    public void onBindViewHolder(@NonNull final CartAdapter.ViewHolder holder, final int position) {
+
+        //通过order表关联数据获取商品表的商品名称name
+        AVObject cart = AVObject.createWithoutData("Cart", mCartList.get(position).getObjectId());
+        cart.fetchInBackground("merchandiseId", new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject avObject, AVException e) {
+                // 获取商品
+                AVObject merchandise = avObject.getAVObject("merchandiseId");
+                String name = merchandise.get("name") + "";
+                String price = merchandise.get("price")+"";
+                String num = mCartList.get(position).get("cartNum")+"";
+                String imgUrl = merchandise.getAVFile("image").getUrl();
+                Picasso.with(mContext).load(imgUrl).into(holder.cartImage);
+                holder.cartName.setText(name);
+                holder.cartPrice.setText(price);
+                holder.cartNum.setText(num);
+
+            }
+        });
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +76,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         private ImageView cartImage;
         private TextView cartName;
         private TextView cartPrice;
+        private TextView cartNum;
+
         private LinearLayout linearLayout;
 
         public ViewHolder(View itemView){
@@ -65,6 +85,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             cartImage=(ImageView)itemView.findViewById(R.id.cart_image);
             cartName=(TextView)itemView.findViewById(R.id.cart_name);
             cartPrice=(TextView)itemView.findViewById(R.id.cart_price);
+            cartNum=itemView.findViewById(R.id.cart_num);
             linearLayout= (LinearLayout)itemView.findViewById(R.id.cart_linearlayout);
         }
     }

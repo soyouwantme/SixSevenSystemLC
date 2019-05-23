@@ -35,8 +35,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
         if(mContext == null){
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.stock_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stock_item,parent,false);
         final StockAdapter.ViewHolder holder = new StockAdapter.ViewHolder(view);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +43,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 final AVObject stock = mStockList.get(position);
                 final Intent intent = new Intent(mContext, StockActivity.class);
-
+                final String objectId = stock.getObjectId();
                 //通过order表关联数据获取商品表的商品名称name
                 AVObject stock1 = AVObject.createWithoutData("Stock", mStockList.get(position).getObjectId());
                 stock1.fetchInBackground("merchandiseId", new GetCallback<AVObject>() {
@@ -54,6 +53,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
                         AVObject merchandise = avObject.getAVObject("merchandiseId");
                         String name = merchandise.get("name") + "";
                         String imgUrl = merchandise.getAVFile("image").getUrl();
+                        intent.putExtra(StockActivity.OBJECTID_ID,objectId);
                         intent.putExtra(StockActivity.STOCK_ID,merchandise.getObjectId());
                         intent.putExtra(StockActivity.STOCK_IMAGE_URL,imgUrl);
                         intent.putExtra(StockActivity.STOCK_NAME,name);

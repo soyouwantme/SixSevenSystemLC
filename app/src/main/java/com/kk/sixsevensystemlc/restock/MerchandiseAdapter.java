@@ -44,7 +44,7 @@ public class MerchandiseAdapter extends RecyclerView.Adapter<MerchandiseAdapter.
                 AVObject merchandise = mMerchandiseList.get(position);
                 Intent intent = new Intent(mContext, DetailActivity.class);
                 Object merchandiseId = merchandise.get("merchandiseId");
-                intent.putExtra(DetailActivity.MERCHANDISE_ID,merchandise.getObjectId());
+                intent.putExtra(DetailActivity.OBJECT_ID,merchandise.getObjectId());
                 intent.putExtra(DetailActivity.MERCHANDISE_NAME,(CharSequence)merchandise.get("name"));
                 intent.putExtra(DetailActivity.MERCHANDISE_RATE,(CharSequence)merchandise.get("rate"));
                 Object PRICE = merchandise.get("price");

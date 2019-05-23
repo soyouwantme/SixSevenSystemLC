@@ -65,17 +65,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             public void done(AVObject avObject, AVException e) {
                 // 获取商品
                 AVObject merchandise = avObject.getAVObject("merchandiseId");
-                String t = merchandise.get("name") + "";
-                holder.orderName.setText(t);
-                //Log.d("xrjkc", t);
+                String name = merchandise.get("name") + "";
+                String price = merchandise.get("price")+"";
+                String num = mOrderList.get(position).get("orderNum")+"";
+                holder.orderName.setText(name);
+                holder.orderPrice.setText(mOrderList.get(position).get("price") == null ? "￥" : "￥" + mOrderList.get(position).get("price"));
+                holder.orderNum.setText("×" + num);
+                holder.orderState.setText("已完成");
+                float sum = Float.parseFloat(num) * Float.parseFloat(price);
+                holder.orderSum.setText("￥" + String.format("%.2f", sum));
             }
         });
 
-        holder.orderState.setText("已完成");
-        holder.orderPrice.setText(mOrderList.get(position).get("price") == null ? "￥" : "￥" + mOrderList.get(position).get("price"));
-        holder.orderNum.setText("×" + (CharSequence) mOrderList.get(position).get("orderNum"));
-        float sum = Float.parseFloat(mOrderList.get(position).get("orderNum").toString()) * Float.parseFloat(mOrderList.get(position).get("price").toString());
-        holder.orderSum.setText("￥" + String.format("%.2f", sum));
+
         //Log.d("urljkc",mMerchandiseList.get(position));
     }
 

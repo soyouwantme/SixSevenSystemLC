@@ -17,22 +17,33 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
 import com.kk.sixsevensystemlc.R;
+import com.kk.sixsevensystemlc.restock.InCartDialogFragment;
+import com.kk.sixsevensystemlc.stock.InStockDialogFragment;
 import com.squareup.picasso.Picasso;
 
-public class DetailActivity extends AppCompatActivity {
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-    public static final String MERCHANDISE_ID = "merchandise_id";
+public class DetailActivity extends AppCompatActivity implements InStockDialogFragment.InListener, InCartDialogFragment.InCartListener {
 
+    String merchandiseId;
+    AVObject merchandise;
+
+
+    public static final String OBJECT_ID = "object_id";
     public static final String MERCHANDISE_NAME = "merchandise_name";
-
     public static final String MERCHANDISE_IMAGE_URL = "merchandise_image_url";
-
     public static final String MERCHANDISE_PRICE = "merchandise_price";
-
     public static final String MERCHANDISE_RATE = "merchandise_rate";
-
     public static final String MERCHANDISE_DETAIL = "merchandise_detail";
 
     @Override
@@ -41,13 +52,17 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.detail_activity);
 
         Intent intent = getIntent();
-        String merchandiseId = intent.getStringExtra(MERCHANDISE_ID);
+        merchandiseId = intent.getStringExtra(OBJECT_ID);
         final String merchandiseName = intent.getStringExtra(MERCHANDISE_NAME);
         String merchandiseImageURL = intent.getStringExtra(MERCHANDISE_IMAGE_URL);
         double merchandisePrice = intent.getDoubleExtra(MERCHANDISE_PRICE,0);
         int rate = Integer.parseInt(intent.getStringExtra(MERCHANDISE_RATE));
         String merchandiseDetail = intent.getStringExtra(MERCHANDISE_DETAIL);
         //Log.d("jkcrate",rate+" ");
+
+        //获取外键
+        merchandise = AVObject.createWithoutData("Merchandise",merchandiseId);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
@@ -69,11 +84,12 @@ public class DetailActivity extends AppCompatActivity {
         RatingBar ratingBar = findViewById(R.id.detail_rate);
         ratingBar.setNumStars(rate);
 
-        Button addCartBtn = findViewById(R.id.add_to_cart_btn);
+        final Button addCartBtn = findViewById(R.id.add_to_cart_btn);
         addCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //添加到清单的逻辑
+                showInCartDialog(v);
             }
         });
 
@@ -82,6 +98,8 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //直接购买，即添加到订单的逻辑，需要打开提示窗口选择数量，然后确定。
+                showInstockDialog(v);
+
             }
         });
 
@@ -108,6 +126,18 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    public void showInCartDialog(View view)
+    {
+        InCartDialogFragment inCartDialogFragment = new InCartDialogFragment();
+        inCartDialogFragment.show(getSupportFragmentManager(),"tag");
+    }
+
+    public void showInstockDialog(View view)
+    {
+        InStockDialogFragment inStockDialogFragment = new InStockDialogFragment();
+        inStockDialogFragment.show(getSupportFragmentManager(),"tag");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -116,5 +146,78 @@ public class DetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onInComplete(final int num) {
+
+        //获取对象来修改库存
+        AVQuery<AVObject> query = new AVQuery<>("Stock");
+        //查找库存表
+        query.whereEqualTo("merchandiseId",merchandise);
+        query.getFirstInBackground(new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject stock, AVException avException) {
+                //Log.e("jkc走库存","succeed");
+                if(stock == null){
+                    //Log.e("jkc库存无","succeed");
+                    AVObject newStock = new AVObject("Stock");
+                    newStock.put("left",num);
+                    newStock.put("merchandiseId",merchandise);
+                    newStock.saveInBackground();
+                }else {
+                    //更新库存,取得当前库存量
+                    //Log.e("jkc库存有","succeed");
+                    int left = Integer.parseInt(stock.get("left") + "");
+                    AVObject todo = AVObject.createWithoutData("Stock", stock.getObjectId());
+                    //库存修改（增加）
+                    left = left + num;
+                    todo.put("left", left);
+                    todo.put("merchandiseId",merchandise);
+                    todo.saveInBackground(null, new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            if (e == null) {
+                                //Log.e("jkc库存更新", "succeed");
+                            } else {
+                                //Log.e("jkcn库存更新", "fail" + e.toString());
+                            }
+                        }
+                    });
+                }
+
+
+                //添加订单表
+                AVObject order = new AVObject("Order");
+                order.put("orderNum",num);
+                order.put("merchandiseId",merchandise);//外键
+                //获取当前时间
+                Date time = Calendar.getInstance().getTime();
+                order.put("orderDate",time);
+                order.saveInBackground(null, new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e==null) {
+                            //Log.e("jkc订单更新", "succeed");
+                        }else {
+                            //Log.e("jkc订单更新", "fail"+e.toString());
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+
+
+    }
+
+    @Override
+    public void onInCartComplete(int num) {
+            AVObject cart = new AVObject("Cart");
+            cart.put("merchandiseId",merchandise);
+            cart.put("cartNum",num);
+            cart.saveInBackground();
     }
 }

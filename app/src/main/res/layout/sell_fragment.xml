@@ -27,17 +27,19 @@
                     android:layout_marginTop="60dp">
 
                     <TextView
+                        android:id="@+id/tt"
+                        style="@style/SellChar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        style="@style/SellChar"
-                        tools:text="昨日收入(元)" />
+                        tools:text="@tools:sample/cities" />
 
                     <TextView
-                        android:id="@+id/sell_yesterday"
+                        android:id="@+id/sell_today"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:text="0"
                         style="@style/SellNumber"
                         tools:text="@tools:sample/us_zipcodes" />
                 </LinearLayout>
@@ -59,7 +61,8 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             style="@style/SellChar1"
-                            android:text="本月支出(元)" />
+                            android:text="本月支出(元)"  />
+
 
                         <TextView
                             android:id="@+id/month_out"

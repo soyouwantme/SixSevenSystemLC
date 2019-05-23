@@ -5,23 +5,18 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.kk.sixsevensystemlc.R;
-//出库对话框逻辑
-public class OutStockDialogFragment extends DialogFragment {
 
+public class NeedDialogFragment extends DialogFragment {
 
-    public interface OutListener
+    public interface NeedListener
     {
-        void onOutComplete(int num);
+        void onNeedComplete(int num);
     }
 
     @NonNull
@@ -30,13 +25,11 @@ public class OutStockDialogFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater =getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_outstock_fragment, null);
-        final EditText numText = (EditText)view.findViewById(R.id.out_num);
+        View view = inflater.inflate(R.layout.dialog_need_fragment, null);
         builder.setView(view).setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                OutListener outListener = (OutListener)getActivity();
-                outListener.onOutComplete(Integer.parseInt(numText.getText().toString()));
+                NeedDialogFragment.NeedListener inListener = (NeedDialogFragment.NeedListener)getActivity();
             }
         }).setNegativeButton("取消",null);
         return builder.create();

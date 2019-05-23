@@ -62,29 +62,24 @@ public class RestockCartFragment extends Fragment {
     private void initCart() {
         cartList.clear();
         AVQuery<AVObject> avQuery = new AVQuery<>("Cart");
-        avQuery.include("name");
-        avQuery.include("price");
         avQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     cartList.addAll(list);
-                    Log.d("jkccartlist", cartList.toString());
+                    //Log.d("jkccartlist", cartList.toString());
                     cartAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
                 }
             }
         });
-
-
-
-        // 假设 GuangDong 的 objectId 为 56545c5b00b09f857a603632
+        /*
         AVObject merchandiseXR = AVObject.createWithoutData("Merchandise", "5cde7bb7a5ef5700083bdda1");
-        AVObject order1 = new AVObject("Order");// 东莞
+        AVObject order1 = new AVObject("Order");
         order1.put("name", "RX1");
         //Log.d("order","orderrunned");
-        order1.put("dependent", merchandiseXR);// 为东莞设置 dependent 属性为广东
+        order1.put("dependent", merchandiseXR);*/
     }
 
 }
