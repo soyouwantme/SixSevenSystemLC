@@ -3,8 +3,8 @@ package com.kk.sixsevensystemlc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +33,6 @@ public class SupplierActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initRecyclerview();
         initMerchandise();
-
     }
 
     private void initRecyclerview(){
@@ -47,14 +46,11 @@ public class SupplierActivity extends AppCompatActivity {
     private void initMerchandise(){
         merchandiseList.clear();
         AVQuery<AVObject> avQuery = new AVQuery<>("Merchandise");
-        avQuery.include("name");
-        avQuery.include("price");
         avQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     merchandiseList.addAll(list);
-                    //Log.d("jkclist",merchandiseList.toString());
                     merchandiseAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
@@ -70,7 +66,6 @@ public class SupplierActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //Log.e("TAGjkc",item.getItemId()+"");
         switch (item.getItemId()){
             case R.id.log_out:
                 AVUser.logOut();// 清除缓存用户对象

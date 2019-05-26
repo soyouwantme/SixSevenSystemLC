@@ -105,10 +105,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                /**startActivityForResult( )
-                 可以一次性完成这项任务，当程序执行到这段代码的时候，假若从T1Activity跳转到下一个
-                 Text2Activity，而当这个Text2Activity调用了finish()方法以后，程序会自动跳转回
-                 T1Activity，并调用前一个T1Activity中的onActivityResult( )方法。*/
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
