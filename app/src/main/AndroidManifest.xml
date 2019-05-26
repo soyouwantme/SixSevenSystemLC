@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kk.sixsevensystemlc">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -17,13 +18,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ConsumerActivity"
-            android:label="消费者端"
-            />
-        <activity android:name=".SupplierActivity"
-            android:label="供销商端"
-            />
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".SupplierAddActivity"></activity>
+        <activity android:name=".SupplierDetail" />
+        <activity
+            android:name=".ConsumerActivity"
+            android:label="消费者端" />
+        <activity
+            android:name=".SupplierActivity"
+            android:label="供销商端" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,14 +16,13 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
-import com.kk.sixsevensystemlc.restock.MerchandiseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierActivity extends AppCompatActivity {
 
-    private MerchandiseAdapter merchandiseAdapter;
+    private SupplierMerchandiseAdapter merchandiseAdapter;
     private List<AVObject> merchandiseList = new ArrayList<>();
 
     @Override
@@ -42,7 +40,7 @@ public class SupplierActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycle_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        merchandiseAdapter = new MerchandiseAdapter(merchandiseList,this);
+        merchandiseAdapter = new SupplierMerchandiseAdapter(merchandiseList,this);
         recyclerView.setAdapter(merchandiseAdapter);
     }
 
@@ -84,6 +82,9 @@ public class SupplierActivity extends AppCompatActivity {
                 editor.commit();
                 startActivity(new Intent(SupplierActivity.this, LoginActivity.class));
                 SupplierActivity.this.finish();
+                break;
+            case R.id.add:
+                startActivity(new Intent(SupplierActivity.this,SupplierAddActivity.class));
                 break;
             default:
         }

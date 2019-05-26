@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/add"
+        android:icon="@drawable/add_merchandies"
+        android:title="添加商品"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/log_out"
         android:icon="@drawable/logout"
         android:title="退出登录"
         app:showAsAction="always"/>
+
 </menu>

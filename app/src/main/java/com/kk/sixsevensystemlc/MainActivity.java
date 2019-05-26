@@ -1,6 +1,7 @@
 package com.kk.sixsevensystemlc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 
+import com.avos.avoscloud.AVUser;
 import com.kk.sixsevensystemlc.restock.RestockFragment;
 import com.kk.sixsevensystemlc.sell.SellFragment;
 import com.kk.sixsevensystemlc.stock.StockFragment;
@@ -40,6 +42,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageButton mImgRestock;
     private ImageButton mImgSell;
     private ImageButton mImgStock;
+    private ImageButton mImgLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTabRestock.setOnClickListener(this);
         mTabSell.setOnClickListener(this);
         mTabStock.setOnClickListener(this);
+        mImgLogout.setOnClickListener(this);
 
     }
 
@@ -129,6 +133,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mImgRestock = (ImageButton) findViewById(R.id.id_tab_restock_img);
         mImgSell = (ImageButton) findViewById(R.id.id_tab_sell_img);
         mImgStock = (ImageButton) findViewById(R.id.id_tab_stock_img);
+        mImgLogout = findViewById(R.id.log_out);
 
     }
 
@@ -148,6 +153,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.id_tab_stock:
                 selectTab(2);
                 break;
+            case R.id.log_out:
+                mImgLogout.setImageResource(R.drawable.tab_logout_pressed);
+                AVUser.logOut();// 清除缓存用户对象
+                SharedPreferences sharedPreferences =
+                        getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email", null);
+                editor.putString("role",null);
+                editor.commit();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                MainActivity.this.finish();
+                break;
+
         }
     }
 
