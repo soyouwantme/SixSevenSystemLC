@@ -217,17 +217,17 @@ public class DetailActivity extends AppCompatActivity implements InStockDialogFr
     }
 
     @Override
-    public void onInCartComplete(final int num) {/*
+    public void onInCartComplete(final int num) {
         AVQuery<AVObject> query = new AVQuery<>("Cart");
         query.whereEqualTo("merchandiseId",merchandise);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> avObjects, AVException avException) {
-                if (avObjects.size() == 0){*/
+                if (avObjects.size() == 0){
                     AVObject cart = new AVObject("Cart");
                     cart.put("merchandiseId",merchandise);
                     cart.put("cartNum",num);
-                    cart.saveInBackground();/*
+                    cart.saveInBackground();
                 }else {
                     AVObject cart = avObjects.get(0);
                     int cartNum = Integer.parseInt(cart.get("cartNum")+"");
@@ -236,7 +236,7 @@ public class DetailActivity extends AppCompatActivity implements InStockDialogFr
                     cart.saveInBackground();
                 }
             }
-        });*/
+        });
 
 
     }

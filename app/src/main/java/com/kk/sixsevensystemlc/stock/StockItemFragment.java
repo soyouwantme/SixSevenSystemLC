@@ -26,6 +26,7 @@ import java.util.List;
 public class StockItemFragment extends Fragment {
     private View view;
 
+    int begin=0;
     private StockAdapter stockAdapter;
     private List<AVObject> stockList = new ArrayList<>();
     private SwipeRefreshLayout swipeRefresh;
@@ -33,6 +34,7 @@ public class StockItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int begin=0;
     }
 
     @Nullable
@@ -80,7 +82,22 @@ public class StockItemFragment extends Fragment {
                 } else {
                     e.printStackTrace();
                 }
+                begin++;
             }
         });
     }
+
+    public void onResume()
+    {
+        super.onResume();
+        if(begin>=1) {
+            //Log.e("stock","123");
+            stockAdapter.ClearStockList();
+            //Log.e("stock",""+stockAdapter.getItemCount());
+            initStock();
+            //Log.e("stock","4:"+stockList.size());
+            stockAdapter.SetStockList(stockList);
+        }
+    }
+
 }

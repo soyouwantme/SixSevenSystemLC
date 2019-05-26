@@ -84,5 +84,16 @@ public class SellRecordFragment extends Fragment {
             }
         });
     }
+
+    public void onResume()
+    {
+        super.onResume();
+        recordAdapter.ClearList();
+        initRecord();
+        recordAdapter.SetList(recordList);
+        Log.e("jkcrecordlist1",""+recordList.size());
+
+    }
+
 }
 

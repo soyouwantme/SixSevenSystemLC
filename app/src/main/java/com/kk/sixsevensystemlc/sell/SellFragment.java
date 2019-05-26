@@ -187,5 +187,17 @@ public class SellFragment extends Fragment {
         return time.getTime();
     }
 
+    public void onResume()
+    {
+        super.onResume();
+        Calendar time = Calendar.getInstance();
+        todayTotal = 0;monthTotal = 0;priceTotal = 0;
+        ti = 0;mi = 0;pi=0;tj = 0; mj = 0;
+        calculatePeriod(time, time, 0);//方法0：获取今日总收入
+        calculatePeriod(time, time, 2);
+        calculatePeriod(time,time,1);
+
+    }
+
 
 }

@@ -99,6 +99,35 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/btn0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="供货商"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/btn1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="商家"/>
+
+                <RadioButton
+                    android:id="@+id/btn2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="消费者"/>
+            </RadioGroup>
+
             <Button
                 android:id="@+id/sign_up_button"
                 style="?android:textAppearanceSmall"

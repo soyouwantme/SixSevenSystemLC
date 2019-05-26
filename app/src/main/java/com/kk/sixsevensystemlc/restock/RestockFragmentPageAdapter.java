@@ -1,9 +1,11 @@
 package com.kk.sixsevensystemlc.restock;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import java.util.HashMap;
 
@@ -20,13 +22,42 @@ public class RestockFragmentPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return createFragment(position);
+        Fragment f = createFragment(position);
+        Log.d("jkcfra","getItem"+ position);
+        return f;
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        Log.d("jkcfra","instant"+ position);
+        //destroyItem();
+        return super.instantiateItem(container, position);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        Log.d("jkcfra","destroy"+ position);
+        super.destroyItem(container, position, object);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        Log.d("jkcfra",object.toString());
+        Log.d("jkcfra",POSITION_NONE+"");
+        return POSITION_NONE;
     }
 
     @Override
     public int getCount() {
         return mTitles.length;
     }
+
 
     private Fragment createFragment(int pos) {
         Fragment fragment = mFragmentHashMap.get(pos);
@@ -47,6 +78,7 @@ public class RestockFragmentPageAdapter extends FragmentPagerAdapter {
                     break;
             }
             mFragmentHashMap.put(pos, fragment);
+            Log.d("jkcfra",pos+"");
         }
         return fragment;
     }

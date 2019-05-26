@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
@@ -39,6 +40,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public CartAdapter(List<AVObject> cartList,Context context){
         mCartList = cartList;
         mContext = context;
+    }
+
+    public void clearlist()
+    {
+        int k=0;
+        for(int i=0;i<mCartList.size();i++) {
+            if(isSelected.get(i+k)) {
+                mCartList.remove(i);
+                i--;
+                k++;
+            }
+        }
+        Log.e("incartlist","123"+mCartList.size());
+    }
+
+    public void  resetcartlist(List<AVObject> cartList)
+    {
+        Log.e("incartlist","123");
+        Log.e("incartlist","123"+cartList.size());
+        mCartList=cartList;
+        for(int i=0;i<cartList.size();i++) {
+            Log.e("incartlist ", "123"+mCartList.get(i).toString() );
+            Log.e("incartlist ", "321"+cartList.get(i).toString() );
+        }
     }
 
 
@@ -70,99 +95,81 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         //通过order表关联数据获取商品表的商品名称name
         AVObject cart = AVObject.createWithoutData("Cart", mCartList.get(position).getObjectId());
+        Log.e("Cart","1:"+mCartList.size());
+
         cart.fetchInBackground("merchandiseId", new GetCallback<AVObject>() {
             @Override
             public void done(AVObject avObject, AVException e) {
                 // 获取商品
-                final AVObject merchandise = avObject.getAVObject("merchandiseId");
-                name = merchandise.get("name") + "";
-                String price = merchandise.get("price")+"";
-                String num = mCartList.get(position).get("cartNum")+"";
-                String imgUrl = merchandise.getAVFile("image").getUrl();
-                Picasso.with(mContext).load(imgUrl).into(holder.cartImage);
-                holder.cartName.setText(name);
-                holder.cartPrice.setText(price);
-                holder.cartNum.setText(num);
-                finalname[position]=name;
-                finalprice[position]=price;
-
-                //finalnum =new int[100];
-                for (int i = 0; i < mCartList.size(); i++) {
-                    finalnum[i]= Integer.valueOf(mCartList.get(i).get("cartNum").toString());
-                }
-
-
-                if(flag==1)
-                {
-                    finalnum[position]=Integer.valueOf(holder.cartNum.getText().toString());
-                    holder.determine_checkbox.setChecked(true);
-                    isSelected = new HashMap<Integer, Boolean>();
-                    for (int i = 0; i < mCartList.size(); i++) {
-                        isSelected.put(i, true);
-                    }
-                }
-
-                if(flag==2)
-                {
-                    finalnum[position]=Integer.valueOf(holder.cartNum.getText().toString());
-                    holder.determine_checkbox.setChecked(false);
-                    isSelected = new HashMap<Integer, Boolean>();
+                if (avObject != null) {
+                    final AVObject merchandise = avObject.getAVObject("merchandiseId");
+                    name = merchandise.get("name") + "";
+                    Log.e("Cart","2:"+mCartList.size());
+                    //Log.e("Cart",""+merchandise.get("name"));
+                    String price = merchandise.get("price") + "";
+                    Log.e("Cart","3:"+mCartList.size());
+                    String num = mCartList.get(position).get("cartNum") + "";
+                    String imgUrl = merchandise.getAVFile("image").getUrl();
+                    Picasso.with(mContext).load(imgUrl).into(holder.cartImage);
+                    holder.cartName.setText(name);
+                    holder.cartPrice.setText(price);
+                    holder.cartNum.setText(num);
+                    finalname[position] = name;
+                    finalprice[position] = price;
                     isSelected.put(position, false);
+                    if(isSelected.get(position))
+                        holder.determine_checkbox.setChecked(true);
+                    else
+                        holder.determine_checkbox.setChecked(false);
+
+                    //finalnum =new int[100];
                     for (int i = 0; i < mCartList.size(); i++) {
-                        isSelected.put(i, false);
+                        finalnum[i] = Integer.valueOf(mCartList.get(i).get("cartNum").toString());
                     }
-                }
 
-                holder.determine_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-                        if (holder.determine_checkbox.isChecked()) {
-                            isSelected.put(position, true);
+
+                    if (flag == 1) {
+                        finalnum[position] = Integer.valueOf(holder.cartNum.getText().toString());
+                        holder.determine_checkbox.setChecked(true);
+                        isSelected = new HashMap<Integer, Boolean>();
+                        for (int i = 0; i < mCartList.size(); i++) {
+                            isSelected.put(i, true);
                         }
-                        else isSelected.put(position, false);
                     }
-                });
-                holder.cartAdd.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        String numberString=holder.cartNum.getText().toString();
-                        int number=Integer.valueOf(numberString);
-                        number++;
 
-                        AVObject cart = AVObject.createWithoutData("Cart",mCartList.get(position).getObjectId());
-                        //Log.e("cartId",mCartList.get(position).getObjectId()+"");
-                        cart.put("cartNum",number);
-                        cart.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(AVException e) {
-                                if(e!=null){
-                                    Log.e("error",e.toString());
-                                }
-                            }
-                        });
-
-                        numberString = String.valueOf(number);
-                        holder.cartNum.setText(numberString);
-                        finalnum[position]=number;
-                        flag=0;
+                    if (flag == 2) {
+                        finalnum[position] = Integer.valueOf(holder.cartNum.getText().toString());
+                        holder.determine_checkbox.setChecked(false);
+                        isSelected = new HashMap<Integer, Boolean>();
+                        isSelected.put(position, false);
+                        for (int i = 0; i < mCartList.size(); i++) {
+                            isSelected.put(i, false);
+                        }
                     }
-                });
-                holder.cartReduce.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        String numberString = holder.cartNum.getText().toString();
-                        int number = Integer.valueOf(numberString).intValue();
-                        if (number != 0) {
-                            number--;
 
-                            AVObject cart = AVObject.createWithoutData("Cart",mCartList.get(position).getObjectId());
+                    holder.determine_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (holder.determine_checkbox.isChecked()) {
+                                isSelected.put(position, true);
+                            } else isSelected.put(position, false);
+                        }
+                    });
+                    holder.cartAdd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String numberString = holder.cartNum.getText().toString();
+                            int number = Integer.valueOf(numberString);
+                            number++;
+
+                            AVObject cart = AVObject.createWithoutData("Cart", mCartList.get(position).getObjectId());
                             //Log.e("cartId",mCartList.get(position).getObjectId()+"");
-                            cart.put("cartNum",number);
+                            cart.put("cartNum", number);
                             cart.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(AVException e) {
-                                    if(e!=null){
-                                        Log.e("error",e.toString());
+                                    if (e != null) {
+                                        Log.e("error", e.toString());
                                     }
                                 }
                             });
@@ -170,10 +177,37 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                             numberString = String.valueOf(number);
                             holder.cartNum.setText(numberString);
                             finalnum[position] = number;
-                            flag=0;
+                            flag = 0;
                         }
-                    }
-                });
+                    });
+                    holder.cartReduce.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String numberString = holder.cartNum.getText().toString();
+                            int number = Integer.valueOf(numberString).intValue();
+                            if (number != 0) {
+                                number--;
+
+                                AVObject cart = AVObject.createWithoutData("Cart", mCartList.get(position).getObjectId());
+                                //Log.e("cartId",mCartList.get(position).getObjectId()+"");
+                                cart.put("cartNum", number);
+                                cart.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        if (e != null) {
+                                            Log.e("error", e.toString());
+                                        }
+                                    }
+                                });
+
+                                numberString = String.valueOf(number);
+                                holder.cartNum.setText(numberString);
+                                finalnum[position] = number;
+                                flag = 0;
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -245,7 +279,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         {
             if(isSelected.get(i))
             {
-                strArray[str_num]=mCartList.get(i).get("merchandiseId").toString();
+
+                Object temp =mCartList.get(i).get("merchandiseId");
+                strArray[str_num] = temp.toString();
+                int begin=strArray[str_num].indexOf("\"objectId\":\"");
+                int end=strArray[str_num].indexOf("\",\"updatedAt\"");
+                strArray[str_num]=strArray[str_num].substring(begin+12,end);
+                //Log.e("getid",strArray[i]);
                 str_num++;
             }
         }
@@ -273,6 +313,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             if(isSelected.get(i))
             {
                 number[num_num]=finalnum[i];
+                Log.e("getnum",number[num_num]+"");
                 num_num++;
             }
         }

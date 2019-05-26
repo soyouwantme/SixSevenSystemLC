@@ -30,6 +30,15 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder>{
         mContext = context;
     }
 
+    public void ClearStockList()
+    {
+        mStockList.clear();
+    }
+    public void SetStockList(List<AVObject> stockList)
+    {
+        mStockList.addAll(stockList);
+    }
+
     @Override
     public StockAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(mContext == null){

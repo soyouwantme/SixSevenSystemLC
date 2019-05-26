@@ -5,15 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/cart_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:background="#f4f4f4"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp" />
- <!--
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:background="#f4f4f4"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
@@ -48,6 +52,15 @@
 
 
             <Button
+                android:id="@+id/deletement"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/accent"
+                android:text="删除" />
+
+            <Button
                 android:id="@+id/settlement"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
@@ -58,6 +71,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>-->
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -18,26 +18,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ConsumerActivity"
+            android:label="消费者端"
+            />
+        <activity android:name=".SupplierActivity"
+            android:label="供销商端"
+            />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
-            android:name="StockActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="库存详情"></activity>
-        <activity
-            android:name="DetailActivity"
-            android:theme="@style/ActivityTheme"></activity>
-        <activity android:name=".ForgetActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".MainActivity">
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 即时通讯模块、推送（均需要加入以下声明） START -->
+        </activity>
+        <activity
+            android:name=".StockActivity"
+            android:label="库存详情"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/ActivityTheme" />
+        <activity android:name=".ForgetActivity" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".MainActivity" /> <!-- 即时通讯模块、推送（均需要加入以下声明） START -->
         <!-- 即时通讯模块、推送都要使用 PushService -->
         <service android:name="com.avos.avoscloud.PushService" />
 

@@ -29,6 +29,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         mContext = context;
     }
 
+    public void ClearList()
+    {
+        mRecordList.clear();
+    }
+
+    public void SetList(List<AVObject> recordList)
+    {
+        mRecordList.addAll(recordList);
+    }
+
     @Override
     public RecordAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(mContext == null){
@@ -41,16 +51,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             public void onClick(View v) {
                 Log.d("jkcpressed","pressed");
                 /**
-                 * 点击进入订单详情逻辑
-                 int position = holder.getAdapterPosition();
-                 AVObject order = mOrderList.get(position);
-                 Intent intent = new Intent(mContext,DetailActivity.class);
-                 intent.putExtra(DetailActivity.ORDER_NAME,(CharSequence)merchandise.get("name"));
-                 intent.putExtra(DetailActivity.MERCHANDISE_RATE,(CharSequence)merchandise.get("rate"));
-                 Object PRICE = order.get("price");
-                 intent.putExtra(DetailActivity.MERCHANDISE_PRICE,Double.parseDouble(PRICE.toString()));
-                 intent.putExtra(DetailActivity.MERCHANDISE_IMAGE_URL,mMerchandiseList.get(position).getAVFile("image").getUrl());
-                 mContext.startActivity(intent);*/
+                 * 点击进入订单详情逻辑*/
             }
         });
         return holder;

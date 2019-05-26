@@ -100,12 +100,10 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
             public void onClick(View v) {
                 //出货逻辑
                 showOutstockDialog(v);
-                if(left<=10){
-                    showNeedDialog(v);
-                    addToMessage(merchandiseName);
-                }
+                stockjudge(v);
             }
         });
+
 
         Button inBtn = findViewById(R.id.add_to_order_btn);
         inBtn.setOnClickListener(new View.OnClickListener() {
@@ -145,11 +143,35 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
         });
     }
 
-    private void refreshStock(){
-        stockAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
-
+    public void stockjudge(View v){
+        if(left<=10){
+            showNeedDialog(v);
+            addToMessage(merchandiseName);
+        }
     }
+
+    private void refreshStock(){
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(2000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run(){
+                        initStockList();
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+
+        }).start();
+    }
+
 
     public void showOutstockDialog(View view)
     {
@@ -181,7 +203,7 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
             public void done(List<AVObject> list, AVException e) {
                 if (e==null) {
                     recordList.addAll(list);
-                    //Log.e("jkcrecordlist", recordList.toString());
+                    Log.e("jkcrecordlist", recordList.toString());
                     stockAdapter.notifyDataSetChanged();
                 }else{
                     Log.e("stock",e.toString());
@@ -207,7 +229,7 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
 
 
     @Override
-    public void onOutComplete(int num) {
+    public void onOutComplete(int num) {/*
         //更新库存
         AVObject todo = AVObject.createWithoutData("Stock", objectId);
         left = left - num;
@@ -239,7 +261,48 @@ public class StockActivity extends AppCompatActivity implements OutStockDialogFr
                     Log.e("jkcrecord", "fail"+e.toString());
                 }
             }
-        });
+        });*/
+        if(num<=left) {
+            if(num<left) {
+                //更新库存
+                AVObject todo = AVObject.createWithoutData("Stock", objectId);
+                left = left - num;
+                todo.put("left", left);
+                todo.saveInBackground(null, new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e == null) {
+                            Log.e("jkcnum", "succeed");
+                        } else {
+                            Log.e("jkcnum", "fail" + e.toString());
+                        }
+                    }
+                });
+            }
+            if(num==left)
+            {
+                AVObject todo = AVObject.createWithoutData("Stock", objectId);
+                todo.deleteInBackground();
+            }
+            //添加销售表
+            AVObject merchandise = AVObject.createWithoutData("Merchandise", stockId);
+            AVObject record = new AVObject("Record");
+            record.put("recordNum", num);
+            //获取当前时间
+            Date time = Calendar.getInstance().getTime();
+            record.put("sellDate", time);
+            record.put("merchandiseId", merchandise);//外键
+            record.saveInBackground(null, new SaveCallback() {
+                @Override
+                public void done(AVException e) {
+                    if (e == null) {
+                        Log.e("jkcrecord", "succeed");
+                    } else {
+                        Log.e("jkcrecord", "fail" + e.toString());
+                    }
+                }
+            });
+        }
     }
 
 

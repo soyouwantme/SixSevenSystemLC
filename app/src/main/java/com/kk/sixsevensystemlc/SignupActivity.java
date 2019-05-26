@@ -7,11 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.SignUpCallback;
 
 public class SignupActivity extends AppCompatActivity {
@@ -20,7 +24,9 @@ public class SignupActivity extends AppCompatActivity {
     private TextView mEmailText;
     private EditText mPasswordText;
     private EditText mRePasswordText;
+    private RadioGroup mRadioGroup;
     private Button mSignUpButton;
+    private int role;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,30 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        mRadioGroup = findViewById(R.id.radio_group);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        //RadioButton radbtn = findViewById(checkedId);
+                        Log.d("signin",checkedId+"");
+                        role = checkedId - 2131230788;
+                        /*
+                        switch (checkedId){
+                            case 0:
+                                role = 0;
+                                break;
+                            case 1:
+                                role = 1;
+                                break;
+                            case 2:
+                                role = 2;
+                                break;
+                            default:
+                                break;
+                        }*/
+                    }
+                });
+
         TextView mBackLogin = (TextView) findViewById(R.id.back_login);
         mBackLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +76,8 @@ public class SignupActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
     public void signup(){
@@ -58,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
 
         mSignUpButton.setEnabled(false);
 
-        String email = mEmailText.getText().toString();
+        final String email = mEmailText.getText().toString();
         String password = mPasswordText.getText().toString();
 
         AVUser user = new AVUser();// 新建 AVUser 对象实例
@@ -71,7 +103,31 @@ public class SignupActivity extends AppCompatActivity {
                 if (e == null) {
                     Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_SHORT).show();
                     // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
-                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                    switch (role){
+                        case 0:
+                            startActivity(new Intent(SignupActivity.this, SupplierActivity.class));
+                            break;
+                        case 1:
+                            startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                            break;
+                        case 2:
+                            startActivity(new Intent(SignupActivity.this, ConsumerActivity.class));
+                            break;
+                        default:
+                            break;
+                    }
+                    //创建role表项
+                    AVObject r = new AVObject("role");
+                    r.put("email",email);
+                    r.put("role",role+"");
+                    r.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            if(e!=null){
+                                Log.d("error",e.toString());
+                            }
+                        }
+                    });
                     SignupActivity.this.finish();
                 } else {
                     // 失败的原因可能有多种，常见的是用户名已经存在。
