@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/customer_stock_linearlayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="#fefefe"
+    android:layout_marginBottom="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp">
+
+        <ImageView
+            android:id="@+id/customer_stock_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/background"
+            android:padding="7dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/apple_pic"
+            tools:srcCompat="@tools:sample/avatars[7]" />
+
+        <TextView
+            android:id="@+id/customer_stock_id"
+            style="@style/TextViewStyleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/customer_stock_image"
+            android:paddingTop="14dp"
+            android:layout_margin="5dp"
+            tools:text="@tools:sample/cities" />
+
+        <TextView
+            android:id="@+id/customer_stock_name"
+            style="@style/TextViewStyleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/customer_stock_id"
+            android:layout_toEndOf="@+id/customer_stock_image"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="5dp"
+            tools:text="@tools:sample/cities" />
+
+        <TextView
+            android:id="@+id/customer_stock_left"
+            style="@style/TextViewStyleName"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_toEndOf="@+id/customer_stock_image"
+            tools:text="@tools:sample/cities"  />
+
+    </RelativeLayout>
+
+</LinearLayout>
